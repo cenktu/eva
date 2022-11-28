@@ -10,7 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       symbol: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true,
+        validate:{
+          is: /(.*[A-Z]){3}/i,
+        },
       },
       price: {
         type: Sequelize.DECIMAL

@@ -26,8 +26,22 @@ module.exports = {
       })
       .catch((error) => res.status(400).send(error));
   },
+  getBySymbol(req, res) {
+    return Share
+      .findOne(req.body.symbol)
+      .then((share) => {
+        if (!share) {
+          return res.status(404).send({
+            message: 'Share Not Found',
+          });
+        }
+        return res.status(200).send(share);
+      })
+      .catch((error) => res.status(400).send(error));
+  },
 
-  add(req, res) {
+
+  add(req, res) { // to do: check if there is one share with same symbol
     return Share
       .create({
         symbol: req.body.symbol,
@@ -49,7 +63,7 @@ module.exports = {
         return share
           .update({
             symbol: req.body.symbol || share.symbol,
-            rate: req.body.rate || share.rate
+            price: req.body.price || share.price
           })
           .then(() => res.status(200).send(share))
           .catch((error) => res.status(400).send(error));
@@ -68,7 +82,7 @@ module.exports = {
         }
         return share
           .destroy()
-          .then(() => res.status(204).send())
+          .then(() => res.status(200).send("Share is deleted successfully!"))
           .catch((error) => res.status(400).send(error));
       })
       .catch((error) => res.status(400).send(error));
@@ -76,9 +90,10 @@ module.exports = {
   async getAllShares(req, res) {
     const share = await Share.findAll();
     if (share === null) {
-        return res.status(400).send('User not available')
+      return res.status(400).send('Share not available')
     } else {
-        return res.status(200).send(share)
+      return res.status(200).send(share)
     }
-}
+  }
+  
 };

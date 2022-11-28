@@ -29,7 +29,7 @@ app.use(helmet());
 app.use(morgan("common"));
 app.use("/api/users", userRoute);
 app.use("/api/shares", shareRoute);
-//app.use("/api/transaction", transactionRoute);
+app.use("/api/transaction", transactionRoute);
 
 
 app.get("/", (req, res) => {
@@ -39,9 +39,9 @@ app.get("/", (req, res) => {
     res.send(value + "!123");
 });
 
-app.get("/users", (req, res) => {
+/*app.get("/users", (req, res) => {
     res.send("Welcome to user page!")
-})
+})*/
 
 app.listen(8000, () => {
     console.log("Server is running!!")

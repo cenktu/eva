@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Share.init({
-    symbol: DataTypes.STRING,
-    price: DataTypes.DECIMAL
+    symbol:{
+      type: DataTypes.STRING,
+      unique:true,
+      validate:{
+        is: /(.*[A-Z]){3}/i,
+      },
+    },
+    price: DataTypes.DECIMAL 
   }, {
     sequelize,
     modelName: 'Share',

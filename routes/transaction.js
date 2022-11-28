@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { transaction } = require("../controllers/transaction");
+const TransactionController  = require("../controllers/transaction");
 
-//router.post("/", transaction.buyShare);
+router.post("/buy", TransactionController.buyShare);
 module.exports = router;
