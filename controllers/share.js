@@ -2,17 +2,7 @@ const Share = require('../models').Share;
 const Portfolio = require('../models').Portfolio;
 
 module.exports = {
-  list(req, res) {
-    return Share
-      .findAll({
-        order: [
-          ['createdAt', 'DESC'],
-        ],
-      })
-      .then((shares) => res.status(200).send(shares))
-      .catch((error) => { res.status(400).send(error); });
-  },
-
+  
   getById(req, res) {
     return Share
       .findByPk(req.params.id)
@@ -26,22 +16,9 @@ module.exports = {
       })
       .catch((error) => res.status(400).send(error));
   },
-  getBySymbol(req, res) {
-    return Share
-      .findOne(req.body.symbol)
-      .then((share) => {
-        if (!share) {
-          return res.status(404).send({
-            message: 'Share Not Found',
-          });
-        }
-        return res.status(200).send(share);
-      })
-      .catch((error) => res.status(400).send(error));
-  },
+  
 
-
-  add(req, res) { // to do: check if there is one share with same symbol
+  add(req, res) { 
     return Share
       .create({
         symbol: req.body.symbol,
